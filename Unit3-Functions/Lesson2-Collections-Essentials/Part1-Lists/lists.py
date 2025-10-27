@@ -1,35 +1,6 @@
-"""
-Feature		Python
-Create		[1, 2, 3]
-Add		    .append(val)
-Remove end	pop()
-Insert		.insert(index, val)
-Length  	len(list)
-Slice	    [start:end]
-Index		[0]
-"""
-# Creating lists
-daily_likes = [500, 600, 750, 400]
-usernames = ["@nasa", "@tswift", "@netflix"]
-mixed_data = [500, "likes", "@user123", True]
-# Accessing elements
-first_day = daily_likes[0]      # 500
-last_day = daily_likes[-1]      # 400 (negative indexing!)
-third_day = daily_likes[2]      # 750
-# Slicing (like JavaScript slice())
-first_three = daily_likes[0:3]  # [500, 600, 750]
-last_two = daily_likes[-2:]     # [750, 400]
+# solutions_part1_lists.py
 
-# Code along - post analyzer
-def analyze_post(likes_list):
-    if likes_list:
-        total = sum(likes_list)
-        average = total / len(likes_list)
-        best_day = max(likes_list)
-        return (average, best_day)
-    return "The list is empty!"
-
-
+# Practice 1 Solution: Format Usernames
 def format_usernames(handles):
     """Add @ prefix to all usernames."""
     formatted = []
@@ -37,10 +8,13 @@ def format_usernames(handles):
         formatted.append("@" + handle)
     return formatted
 
-# Test
-result = format_usernames(["nasa", "tswift", "netflix"])
-print(result)  # ['@nasa', '@tswift', '@netflix']
+# Test Practice 1
+print("Practice 1 Test:")
+result1 = format_usernames(["nasa", "tswift", "netflix"])
+print(result1)  # ['@nasa', '@tswift', '@netflix']
+print()
 
+# Practice 2 Solution: Filter Trending Posts
 def filter_trending_posts(likes_list):
     """Return posts with over 1000 likes."""
     trending = []
@@ -49,11 +23,42 @@ def filter_trending_posts(likes_list):
             trending.append(likes)
     return trending
 
-# Test
-result = filter_trending_posts([500, 1200, 800, 1500, 600])
-print(result)  # [1200, 1500]
+# Test Practice 2
+print("Practice 2 Test:")
+result2 = filter_trending_posts([500, 1200, 800, 1500, 600])
+print(result2)  # [1200, 1500]
+print()
 
+# Practice 3 Solution: Engagement Stats
+def engagement_stats(engagements):
+    """Calculate comprehensive engagement statistics."""
+    if not engagements:
+        return {"average": 0, "max": 0, "min": 0, "trending_days": 0}
+    
+    average = sum(engagements) / len(engagements)
+    maximum = max(engagements)
+    minimum = min(engagements)
+    
+    trending_days = 0
+    for engagement in engagements:
+        if engagement > 1000:
+            trending_days += 1
+    
+    return {
+        "average": average,
+        "max": maximum,
+        "min": minimum,
+        "trending_days": trending_days
+    }
 
+# Test Practice 3
+print("Practice 3 Test:")
+weekly = [1200, 800, 1500, 900, 1100]
+result3 = engagement_stats(weekly)
+print(result3)  # {'average': 1100.0, 'max': 1500, 'min': 800, 'trending_days': 3}
+print()
+
+# Code Tracing 1 Solution
 def process_engagements(data):
     result = []
     for i in range(len(data)):
@@ -65,16 +70,85 @@ def process_engagements(data):
             result.append("Stable")
     return result
 
+print("Code Tracing 1:")
 engagements = [500, 1200, 800, 1500, 600]
-output = process_engagements(engagements)
-print(output)
+output1 = process_engagements(engagements)
+print(output1)  # ['Stable', 'Trending', 'Stable', 'Trending', 'Stable']
+print(len([r for r in output1 if r == "Trending"]))  # 2
+print()
 
-engagements = [500, 1200, 800, 1500, 600]
+# Code Tracing 2 Solution
+def analyze_growth(daily_likes):
+    if not daily_likes:
+        return []
+    
+    growth_pattern = []
+    for i in range(1, len(daily_likes)):
+        if daily_likes[i] > daily_likes[i-1]:
+            growth_pattern.append("Up")
+        elif daily_likes[i] < daily_likes[i-1]:
+            growth_pattern.append("Down")
+        else:
+            growth_pattern.append("Same")
+    return growth_pattern
 
-# i=0: 500 <= 1000, no previous → "Stable"
-# i=1: 1200 > 1000 → "Trending"  
-# i=2: 800 <= 1000, 800 < 1200 → "Stable"
-# i=3: 1500 > 1000 → "Trending"
-# i=4: 600 <= 1000, 600 < 1500 → "Stable"
+print("Code Tracing 2:")
+data = [100, 150, 150, 120, 200]
+result4 = analyze_growth(data)
+print(result4)  # ['Up', 'Same', 'Down', 'Up']
+print(result4.count("Up"))  # 2
+print()
 
-result = ["Stable", "Trending", "Stable", "Trending", "Stable"]
+# Code Tracing 3 Solution
+def process_data(values):
+    result = []
+    temp = values[:]  # Create a copy
+    
+    while temp:
+        if temp[0] % 2 == 0:
+            result.append(temp.pop(0) * 2)
+        else:
+            result.append(temp.pop(0) // 2)
+    
+    return result
+
+print("Code Tracing 3:")
+data = [10, 5, 8, 3]
+output2 = process_data(data)
+print(output2)  # [20, 2, 16, 1]
+print(data)     # [10, 5, 8, 3] (original unchanged)
+print()
+
+# Challenge Solution: Post Analyzer Pro
+def calculate_engagement(likes, shares, comments):
+    return likes + shares + comments
+
+def get_engagement_tier(total_engagement):
+    if total_engagement < 500:
+        return "Low"
+    elif total_engagement <= 2000:
+        return "Medium"
+    else:
+        return "High"
+
+def analyze_posts(post_data):
+    tiers = []
+    for post in post_data:
+        likes, shares, comments = post
+        total = calculate_engagement(likes, shares, comments)
+        tier = get_engagement_tier(total)
+        tiers.append(tier)
+    return tiers
+
+print("Challenge Solution:")
+posts = [[500, 50, 100], [1000, 200, 300], [100, 10, 20]]
+result5 = analyze_posts(posts)
+print(result5)  # ['Medium', 'High', 'Low']
+print()
+
+# Additional Test Cases
+print("Additional Test Cases:")
+print("Empty list test:", engagement_stats([]))
+print("Single element test:", engagement_stats([1500]))
+print("All trending test:", engagement_stats([1200, 1500, 1800]))
+print("No trending test:", engagement_stats([500, 800, 900]))
