@@ -5,6 +5,12 @@ Unit 4 - Lesson 1A Practice: Adding & Removing Lists
 Complete the functions below. Run this file to test your solutions!
 All tests are provided - your job is to make them pass.
 """
+nums_list = [1,2,3]
+nums_tuple = (1,2,3)
+print(dir(nums_list))
+print(f"length of list attrs: {len(dir(nums_list))}")
+print(dir(nums_tuple))
+print(f"length of list attrs: {len(dir(nums_tuple))}")
 
 # ==================== PROBLEM 1: CODE TRACING ====================
 
