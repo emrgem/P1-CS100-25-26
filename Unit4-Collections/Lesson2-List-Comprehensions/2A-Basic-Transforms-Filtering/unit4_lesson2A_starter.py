@@ -27,9 +27,11 @@ for views in view_counts:
     in_thousands.append(views / 1000)
 
 # TODO: Write your comprehension here
-# in_thousands = 
+in_thousands = [views for views in view_counts]
+print("Your Turn:", in_thousands)
+in_thousands = [views/1000 for views in view_counts]
+print("Your Turn:", in_thousands)
 
-# print("Your Turn:", in_thousands)
 # Expected: [1.5, 23.0, 0.89, 45.0]
 
 
