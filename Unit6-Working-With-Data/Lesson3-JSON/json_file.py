@@ -56,48 +56,4 @@ for product in loaded_products:
     print(f" - {product['name']}")
 
 
-# =============================================================================
-# 🔤 PRACTICE: JSON Strings
-# =============================================================================
-# Practice with json.loads() and json.dumps()
-
-# Parse this JSON string from an "API response"
-api_response = '{"status": "success", "revenue": 45000, "customers": 127}'
-
-# YOUR CODE HERE:
-# 1. Parse the string into a Python dictionary
-
-
-# 2. Print the revenue
-
-
-# 3. Convert back to a formatted JSON string
-
-
-
-# =============================================================================
-# 🏢 PRACTICE: Nested Data
-# =============================================================================
-# Work with nested JSON structures
-
-company = {
-    "name": "TechCorp",
-    "founded": 2018,
-    "location": {
-        "city": "San Francisco",
-        "state": "CA",
-        "zip": "94105"
-    },
-    "departments": ["Sales", "IT", "Marketing", "Finance"]
-}
-
-# YOUR CODE HERE:
-# 1. Print the city
-
-
-# 2. Print the first department
-
-
-# 3. Save this to "company_info.json"
-
 
