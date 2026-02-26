@@ -14,7 +14,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()  # loads variables from .env
-API_KEY = os.getenv("gemini_API_KEY")
+
 
 # ============================================================
 # IMPORTS
@@ -29,7 +29,7 @@ from datetime import datetime
 # ============================================================
 # YOUR API KEY (REQUIRED)
 # ============================================================
-API_KEY = "AIzaSyCOdmfJ7_GybrX1o9dcG5P1KSaKL77X-jo"
+API_KEY = os.getenv("gemini_API_KEY")
 
 URL = (
     "https://generativelanguage.googleapis.com"
