@@ -1,0 +1,3 @@
+-- database: ./movies.db
+
+SELECT * FROM movies;;
