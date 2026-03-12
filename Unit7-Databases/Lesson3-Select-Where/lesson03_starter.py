@@ -49,30 +49,91 @@ run_query(DB_FILE,"""
 # ============================================================
 # QUERY 8-10: ORDER BY + LIMIT — Sort and cap results
 # ============================================================
+# top 5 highest rated movies
+run_query(DB_FILE, """
+          SELECT title, genre, rating FROM movies
+          ORDER BY rating DESC LIMIT 5
+          """)
 
+# 10 newest movies
+run_query(DB_FILE, """
+          SELECT title, year, genre FROM movies
+          ORDER BY year DESC LIMIT 10
+          """)
+# 10 newest movies, sorted by year by desc, then genre by asc
+run_query(DB_FILE, """
+          SELECT title, year, genre FROM movies
+          ORDER BY year DESC, genre ASC LIMIT 10
+          """)
 
-
+# Top 5 Action Movies (title, rating)
+run_query(DB_FILE, """
+          SELECT title, rating FROM movies
+          WHERE genre = 'Action'
+          ORDER BY rating DESC LIMIT 5
+          """)
 
 # ============================================================
 # QUERY 11-13: LIKE — Text search
 # ============================================================
+# Search movies that contains spider
+run_query(DB_FILE, """
+          SELECT title, year FROM movies
+          WHERE title LIKE '%spider%'
+          """)
 
+# Title starts with "The" - First 10 movies, sorted by title
+run_query(DB_FILE, """
+            SELECT title, year FROM movies
+            WHERE title LIKE 'The%'
+            ORDER BY title LIMIT 10
+          """)
 
-
-
+# Genres containing 'i'
+# DISTINCT removes the duplicates
+run_query(DB_FILE, """
+            SELECT DISTINCT genre FROM movies
+            WHERE genre LIKE '%i%'
+          """)
 # ============================================================
 # QUERY 14-17: Aggregates — COUNT, AVG, GROUP BY
 # ============================================================
+# Total Movies
+run_query(DB_FILE, """
+            SELECT COUNT(*) FROM movies
+          """)
+# Average Rating
+run_query(DB_FILE, """
+            SELECT ROUND(AVG(rating),1) FROM movies
+          """)
 
+# Movies per Genre
+run_query(DB_FILE, """
+            SELECT genre, COUNT(*) as total
+            FROM movies
+            GROUP BY genre
+            ORDER BY total DESC
+          """)
 
-
+# Average rating by Genre
+run_query(DB_FILE, """
+            SELECT genre, ROUND(AVG(rating),1) as avg_rating
+            FROM movies
+            GROUP BY genre ORDER BY avg_rating DESC
+          """)
 
 # ============================================================
 # QUERY 18: The "Impossible with CSV" query
 # Top 3 genres by average rating with count
 # ============================================================
 
-
+run_query(DB_FILE, """
+            SELECT genre, ROUND(AVG(rating),1) as avg_rating, COUNT(*) as total
+            FROM movies
+            GROUP BY genre
+            ORDER BY avg_rating DESC
+            LIMIT 3
+          """)
 
 
 # ============================================================
