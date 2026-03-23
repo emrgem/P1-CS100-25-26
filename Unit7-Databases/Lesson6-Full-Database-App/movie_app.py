@@ -74,8 +74,30 @@ def add_movie():
 # ============================================================
 # view_stats() — COUNT, AVG, GROUP BY genre
 # ============================================================
+def view_stats():
+    """Show database statistics."""
+    with sqlite3.connect(DB_FILE) as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) FROM movies")
+        total = cursor.fetchone()[0]
 
+        if total == 0:
+            print("\n📊 No movies in database yet.")
+            return
 
+        cursor.execute("SELECT ROUND(AVG(rating), 1) FROM movies")
+        avg = cursor.fetchone()[0]
+
+        cursor.execute("""
+            SELECT genre, COUNT(*), ROUND(AVG(rating), 1)
+            FROM movies GROUP BY genre ORDER BY COUNT(*) DESC
+        """)
+        genres = cursor.fetchall()
+
+    print(f"\n📊 Stats: {total} movies, avg rating: {avg}/10")
+    print("  Genre breakdown:")
+    for g in genres:
+        print(f"    {g[0]}: {g[1]} movies (avg {g[2]}/10)")
 
 # ============================================================
 # main() — Menu loop that ties everything together
