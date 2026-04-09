@@ -68,3 +68,15 @@ maria.gain_follower()
 maria.gain_follower()
 print(f"Followers: {maria.followers}")
 print()
+
+
+# Testing follow method
+print("Testing follow method...")
+maria.follow("python_guru")
+maria.follow("real_python")
+print(f"Following: {maria.following}")
+
+
+
+
+
