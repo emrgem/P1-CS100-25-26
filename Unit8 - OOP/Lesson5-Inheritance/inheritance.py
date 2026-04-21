@@ -67,7 +67,17 @@ class CollaborativePlaylist(Playlist):   # ← fix this line (TODO 1)
     def add_contributor(self, username):
         self.contributors.append(username)
 
-
+    def add_song(self, title, artist, duration, added_by = "unknown"):
+        super().add_song(title, artist, duration) # adds song to the end of the list
+        self.songs[-1]["added_by"] = added_by #adds contributor to the last added song
+    
+    # New Getter - filter songs by contributor
+    def get_songs_by(self, username):
+        result = []
+        for song in self.songs:
+            if song.get("added_by") == username:
+                result.append(song['title'])
+        return result
 # =============================================================================
 # TESTS — uncomment as you finish
 # =============================================================================
@@ -80,8 +90,8 @@ print(f"Contribs: {collab.contributors}")  # []
 print()
 
 # # Inherited methods should work for FREE
-collab.add_song("Dreams", "Fleetwood Mac", 257)
-collab.add_song("Africa", "Toto", 295)
+# collab.add_song("Dreams", "Fleetwood Mac", 257)
+# collab.add_song("Africa", "Toto", 295)
 print(f"Song Count: {collab.song_count()}")
 print(f"Total Duration: {collab.total_duration()}")
 
@@ -90,3 +100,14 @@ print(f"Total Duration: {collab.total_duration()}")
 collab.add_contributor("Nick")
 collab.add_contributor("Angad")
 print(f"Contributors: {collab.contributors}")
+
+# Test MEthod Overriding - add_song()
+collab.add_song("Dreams", "Fleetwood Mac", 257, added_by="Nick")
+collab.add_song("Africa", "Toto", 295, added_by= "Angad" )
+
+print(collab.songs)
+for song in collab.songs:
+    print(f"{song['title']} - added by {song['added_by']}")
+    
+print("get songs by:")
+print(f" Nick's Songs: {collab.get_songs_by('Nick')}")
